@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:map_launcher/src/models.dart';
 import 'package:map_launcher/src/utils.dart';
 
@@ -241,7 +242,6 @@ String getMapDirectionsUrl({
         },
         // the TomTom Go app cannot handle the ? at the start of the query
       ).replaceFirst('?', '');
-
     case MapType.copilot:
       // Documentation:
       // https://developer.trimblemaps.com/copilot-navigation/v10-19/feature-guide/advanced-features/url-launch/
@@ -257,7 +257,33 @@ String getMapDirectionsUrl({
         },
       );
 
-    case MapType.flitsmeister:
+case MapType.tomtomgofleet:
+      return Utils.buildUrl(
+        url: 'google.navigation:',
+        queryParams: {
+          'q': '${destination.latitude},${destination.longitude}',
+          ...(extraParams ?? {}),
+        },
+        // the TomTom Go app cannot handle the ? at the start of the query
+      ).replaceFirst('?', '');
+    
+    case MapType.sygic:
+      // Documentation:
+      // https://www.sygic.com/developers/professional-navigation-sdk/introduction
+      String url = Utils.buildUrl(
+        url:
+            'com.sygic.aura://coordinate|${destination.longitude}|${destination.latitude}|drive',
+        queryParams: {
+          ...(extraParams ?? {}),
+        },
+      );
+      print(url);
+      print(url);
+      print(url);
+      print(url);
+      return url;
+
+      case MapType.flitsmeister:
       if (Platform.isIOS) {
         return Utils.buildUrl(
           url: 'flitsmeister://',

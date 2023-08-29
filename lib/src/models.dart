@@ -21,6 +21,8 @@ enum MapType {
   petal,
   tomtomgo,
   copilot,
+  tomtomgofleet,
+  sygic,
   flitsmeister,
   truckmeister,
 }
